@@ -45,4 +45,27 @@ var fs=require("fs");
 //}
 //copy('./1.txt','./2.txt');
 //----------------------------------------------
-
+//fs.readdir('./',function(err,data){
+//    if(err){
+//        console.log(err)
+//    }else{
+//        console.log(data)
+//    }
+//})
+//--------------------------------------------
+//fs.mkdir('./test/', function (err) {
+//    if(err){
+//        console.log(err)
+//    }
+//})
+//
+//--------------------------------------------
+//思考:如何一次创建 ./test/t/t/t这样多重目录
+//-------------------------------------------
+fs.readdir('./',function(err,data){
+    data.forEach(function(key){
+        fs.stat('./'+key,function(err,state){//这边一般要放目录名的
+            console.log(state)
+        })
+    })
+});
