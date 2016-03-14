@@ -1,13 +1,5 @@
-window.onload= function () {
-    var moran={
-        parse:function(str){
-            if(JSON in window){
-                return JSON.parse(str)
-            }else {
-                return eval("("+str+")")
-            }
-        }
-    }
+function getInfo() {
+    document.getElementsByTagName("input")[0].style.display="none";
     var xhr=new XMLHttpRequest();
     var data=[];
     xhr.onreadystatechange= function () {

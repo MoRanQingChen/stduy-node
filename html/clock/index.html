@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax时钟 获得服务器时间</title>
+</head>
+<body>
+<div id="time"></div>
+<script>
+    //1先创建一个ajax
+    var xhr=new XMLHttpRequest();
+    var time;
+    //2 open接受3或5个参数,(方法,url,是否同步,[用户名],[密码])
+
+    xhr.onreadystatechange=function(){//状态改变时触发
+        //xhr.readyState 有五种状态
+        // 0未初始化  1初始化  2发送数据  3发送中  4完成
+        if(xhr.readyState==4&&/2\d\d/.test(xhr.status)){
+            var time=xhr.responseText;
+            document.getElementById("time").innerHTML=time;
+        }
+    };
+    setInterval(function () {
+        xhr.open("get","/clock",true)//每次发送完都要重新open
+        xhr.send();//发送请求体
+    },1000)
+
+
+</script>
+</body>
+</html>

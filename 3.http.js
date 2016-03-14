@@ -6,7 +6,7 @@ var mime=require("mime");
 //server.on('request',function (req,resp) {
 //    if(req.url === '/data.txt'){
 //        console.log("开始查ajax");
-//        fs.readFile('./paixu/data.txt', function(err, data){
+//        fs.readFile('html/paixu/data.txt', function(err, data){
 //            if(err){
 //                console.log(err);
 //            }else {
@@ -17,7 +17,7 @@ var mime=require("mime");
 //        });
 //    }else
 //    if(req.url === '/'){
-//        fs.readFile("./paixu/index.html",'utf-8', function (err,data) {
+//        fs.readFile("html/paixu/index.html",'utf-8', function (err,data) {
 //            if(err){
 //                console.log(err)
 //            }else {
@@ -33,37 +33,37 @@ var mime=require("mime");
 //    var url=req.url;
 //    if(url=='/'){
 //        console.log("主页")
-//        fs.readFile('paixu/index.html','utf8',function(err,data){
+//        fs.readFile('html/paixu/index.html','utf8',function(err,data){
 //            res.write(data);
 //            res.end();
 //        })
 //    }else if(url=='/data.txt'){
 //        console.log("获取内容")
-//        fs.readFile('paixu/data.txt','utf8', function (err,data) {
+//        fs.readFile('html/paixu/data.txt','utf8', function (err,data) {
 //            res.write(data);
 //            res.end();
 //        })
 //    }else if(url=='/mystyle.css'){
 //        res.setHeader('Content-Type','text/css;charset=utf-8');
 //        console.log("获取CSS");
-//        fs.readFile('paixu/mystyle.css','utf8',function(err,data){
+//        fs.readFile('html/paixu/mystyle.css','utf8',function(err,data){
 //            res.write(data);
 //            res.end();
 //        })
 //    }else if(url=='/myjs.js'){
 //        res.setHeader('Content-Type','text/javascript;charset=utf-8');
 //        console.log("获取CSS");
-//        fs.readFile('paixu/myjs.js','utf8',function(err,data){
+//        fs.readFile('html/paixu/myjs.js','utf8',function(err,data){
 //            res.write(data);
 //            res.end();
 //        })
 //    }
 //}).listen(8080);
 //---------------------------------------------------------------
-//优化上面的代码
+//优化上面的代码(不考虑query)
 var server=http.createServer(function (req,res) {
     var url=req.url=='/'?"/index.html":req.url;
-    fs.readFile("paixu"+url,'utf8', function (err,data) {
+    fs.readFile("html/paixu"+url,'utf8', function (err,data) {
         if(!err){
             res.setHeader('Content-Type',mime.lookup(url)+';charset=utf-8');
             res.write(data);
