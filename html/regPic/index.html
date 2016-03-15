@@ -15,7 +15,8 @@
     var xhr=new XMLHttpRequest();
     xhr.onreadystatechange= function () {
         if(xhr.readyState==4&&/^2\d\d$/.test(xhr.status)){
-            alert("提交成功")
+            alert("提交成功");
+            console.log(xhr.responseText)
         }
     };
     function reg(){
@@ -24,7 +25,6 @@
         formData.append('password',document.getElementsByName('password')[0].value);
         //注意下面的不是.value了!是.files 而且! files是H5新增加的 , 并且files既然是[复数]所以类比数组
         formData.append('picture',document.getElementsByName('picture')[0].files[0]);
-
         xhr.open('post','/reg',true);
         xhr.send(formData);
     }
