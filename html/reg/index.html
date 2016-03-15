@@ -13,6 +13,7 @@
         padding: 20px;
         box-shadow: 3px 3px 10px #333;
         margin: 20px auto;
+        text-align: center;
     }
     table{
         width: 100%;
@@ -31,6 +32,7 @@
     }
 </style>
 <div id="container">
+    已注册用户列表
     <table>
         <thead>
         <tr>
@@ -84,6 +86,32 @@
         }
         oTb.appendChild(frg);
         frg=null;
+        var oTh=document.getElementsByTagName("th");
+        oTr=document.getElementsByTagName("tr");
+        oTr=[].slice.call(oTr);
+        oTr.shift();
+        for(var j=0;j<oTh.length;j++){
+            oTh[j].count=j;
+            oTh[j].flag=-1;
+            oTh[j].onclick= function () {
+                var _this=this;
+                for(var i=0;i<oTh.length;i++){
+                    i!=_this.count?(oTh[i].flag=-1):(oTh[i].flag*=-1);
+                }
+                oTr.sort(function (a,b) {
+                    var pre= a.childNodes[_this.count].innerHTML;
+                    var aft= b.childNodes[_this.count].innerHTML;
+                    if(Number(pre)){
+                        return _this.flag*(pre-aft);
+                    }else {
+                        return _this.flag*(pre.localeCompare(aft));
+                    }
+                });
+                for(var i=0;i<oTr.length;i++){
+                    oTb.appendChild(oTr[i]);
+                }
+            }
+        }
     }
 
 </script>

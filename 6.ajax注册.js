@@ -9,12 +9,10 @@ http.createServer(function(req,res){
             res.end(data)
         })
     }else if(urlObj.path=='/reg'){
-        //每当客户端发来请求的时候都会触发req的data事件
         var str='';
-        req.on('data',function(data){//这里的data就是接收到的数据段
+        req.on('data',function(data){
             str+=data;
         });
-        //接受完的时候会触发end时间
         req.on('end', function () {
             str&&users.push(JSON.parse(str));
             res.end(JSON.stringify(users));
