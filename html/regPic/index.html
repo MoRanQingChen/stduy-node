@@ -5,29 +5,59 @@
     <title>含图片表单</title>
 </head>
 <body>
+<style>
+    .picBox{
+        width: 100px;
+        height: 200px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        margin: 5px;
+    }
+</style>
+
 <form action="post">
     <input type="text" name="name"><br>
     <input type="password" name="password"><br>
     <input type="file" name="picture"><br>
     <input type="button" value="提交" onclick="reg()">
 </form>
+<div id="picContainer">
+
+</div>
 <script>
     var xhr=new XMLHttpRequest();
+    var picArr=[];
     xhr.onreadystatechange= function () {
         if(xhr.readyState==4&&/^2\d\d$/.test(xhr.status)){
-            alert("提交成功");
-            console.log(xhr.responseText)
+            picArr=JSON.parse(xhr.responseText);
+            add()
         }
     };
+    xhr.open('get','/reg',false);
+    xhr.send(null);
     function reg(){
         var formData=new FormData()//html5新增的对象
         formData.append('username',document.getElementsByName('name')[0].value)//以key-value的格式传数据
         formData.append('password',document.getElementsByName('password')[0].value);
         //注意下面的不是.value了!是.files 而且! files是H5新增加的 , 并且files既然是[复数]所以类比数组
         formData.append('picture',document.getElementsByName('picture')[0].files[0]);
-        xhr.open('post','/reg',true);
+        xhr.open('post','/reg',false);
         xhr.send(formData);
     }
+    function add(){
+        var fag=document.createDocumentFragment();
+        var container=document.getElementById("picContainer");
+        fag.innerHTML="";
+        container.innerHTML="";
+        for(var i=0;i<picArr.length;i++){
+            var img=document.createElement('img');
+            img.src=picArr[i];
+            img.className="picBox"
+            fag.appendChild(img);
+        }
+        container.appendChild(fag);
+    }
+    window.onload=add();
 </script>
 </body>
 </html>
