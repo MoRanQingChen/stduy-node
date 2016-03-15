@@ -7,8 +7,14 @@ var picArr=[];
 http.createServer(function(req,res){
     var urlObj=url.parse(req.url);
     if(urlObj.path=='/'){
+        console.log("主页请求")
         fs.readFile('html/regPic/index.html','utf8',function(err,data){
-            res.end(data);
+            if(err){
+                console.log(err)
+            }else{
+                res.end(data);
+            }
+
         })
     }else if(urlObj.path=='/reg') {
         //-------------------------------------------------------------
@@ -27,14 +33,14 @@ http.createServer(function(req,res){
                 var picName=new Date().getTime();
                 picName='html/regPic/getImg/'+picName+'.jpg';
                 picArr.push(picName);
-                console.log(picArr);
                 fs.readFile(files.picture.path, function (err,data) {
                     fs.writeFile(picName,data,function(){
                         res.end(JSON.stringify(picArr));
                     });
                 });
+            }else {
+                res.end(JSON.stringify(picArr));
             }
-            res.end(JSON.stringify(picArr));
             //------------------
         });
         return;
